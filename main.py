@@ -6,10 +6,10 @@
 #
 # All images are used through the open license
 # Sprite images were taken from:
-# https://www.flaticon.com/free-icons/space-invaders - Space invaders icons created by Smashicons - Flaticon
-# https://www.flaticon.com/free-icons/alien - Alien icons created by smalllikeart - Flaticon
-# https://www.flaticon.com/free-icons/hearth - Hearth icons created by Andrean Prabowo - Flaticon
-# https://www.flaticon.com/free-icons/bullet - Bullet icons created by Smashicons - Flaticon
+# https://www.flaticon.com/free-icons/space-invaders - Space invaders icon created by Smashicons - Flaticon
+# https://www.flaticon.com/free-icons/alien - Alien icon created by smalllikeart - Flaticon
+# https://www.flaticon.com/free-icons/hearth - Hearth icon created by Andrean Prabowo - Flaticon
+# https://www.flaticon.com/free-icons/bullet - Bullet icon created by Smashicons - Flaticon
 
 import pygame
 from pygame.sprite import Group
