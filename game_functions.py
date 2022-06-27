@@ -45,7 +45,7 @@ def check_play_button(settings, screen, stats, sb, play_button, ship, aliens, bu
 
     if button_clicked and not stats.game_active:
         # return to the initial speed settings
-        settings.initialise_dynamic_settings()
+        settings.set_dynamic_settings()
 
         # set the mouse cursor invisible
         pygame.mouse.set_visible(False)
@@ -159,7 +159,7 @@ def check_bullet_alien_collisions(settings, screen, stats, sb, ship, aliens, bul
         bullets.empty()
         alien_bullets.empty()
         create_fleet(settings, screen, ship, aliens)
-        settings.increase_speed()
+        settings.increase_difficulty()
         stats.level += 1
         sb.prep_level()
         time.sleep(0.5)

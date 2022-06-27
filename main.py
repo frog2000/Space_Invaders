@@ -33,9 +33,9 @@ def run_game():
     program_icon = pygame.image.load('images/space-invaders.png')
     pygame.display.set_icon(program_icon)
 
-    play_button = Button(settings, screen, "Play")
+    play_button = Button(screen, "Play")
     stats = GameStats(settings)
-    sb = Scoreboard(settings, screen, stats)
+    sb = Scoreboard(screen, stats)
     ship = Ship(screen, settings)
 
     # create groups for multiple sprites on the screen

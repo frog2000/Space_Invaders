@@ -8,6 +8,7 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = screen
 
+        # set up the bullet dimensions and the initial position
         self.rect = pygame.Rect(0, 0, settings.bullet_width, settings.bullet_height)
         self.rect.centerx = origin_object.rect.centerx
         self.rect.top = origin_object.rect.top
@@ -15,10 +16,12 @@ class Bullet(Sprite):
         self.y = float(self.rect.y)
         self.x = float(self.rect.x)
 
+        # set up the colour and the initial speed
         self.colour = settings.bullet_colour
         self.speed_factor = settings.bullet_speed_factor
 
     def update(self):
+        """ Moves the bullet up the screen """
         self.y -= self.speed_factor
         self.rect.y = self.y
 
@@ -34,6 +37,7 @@ class AlienBullet(Bullet):
         self.speed_factor = settings.alien_bullet_speed_factor
 
     def update(self):
+        """ Moves the bullet down the screen """
         self.y += self.speed_factor
         self.rect.y = self.y
 
@@ -49,6 +53,7 @@ class RightSideBullet(Bullet):
         self.x = float(self.rect.x)
 
     def update(self):
+        """ Moves the bullet up and to the right """
         self.y -= self.speed_factor
         self.rect.y = self.y
         self.x += self.speed_factor
@@ -66,6 +71,7 @@ class LeftSideBullet(Bullet):
         self.x = float(self.rect.x)
 
     def update(self):
+        """ Moves the bullet up and to the left """
         self.y -= self.speed_factor
         self.rect.y = self.y
         self.x -= self.speed_factor
