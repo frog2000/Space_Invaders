@@ -35,15 +35,17 @@ class Settings:
 
         self.alien_points = 50
 
-        self.alien_probability_shooting = 1000
+        self.alien_probability_shooting = 4000
+
+        self.loot_drop_speed = 3
+        self.loot_probability = 100
 
     def initialise_dynamic_settings(self):
         self.ship_seed_factor = 10
         self.bullet_speed_factor = 15
         self.alien_speed_factor = 5
-
         self.fleet_direction = 1
-        self.alien_probability_shooting = 10000
+        self.alien_probability_shooting = 4000
 
     def increase_speed(self):
         self.ship_seed_factor *= self.speed_up_scale

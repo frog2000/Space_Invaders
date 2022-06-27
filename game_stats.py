@@ -1,9 +1,9 @@
 
 class GameStats:
 
-    def __init__(self, ai_settings):
+    def __init__(self, settings):
 
-        self.settings = ai_settings
+        self.settings = settings
         self.game_active = False
         self.reset_stats()
         self.ships_left = self.settings.ship_limit

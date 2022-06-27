@@ -4,7 +4,7 @@ import time
 import random
 
 from bullet import Bullet, PowerfulBullet, RightSideBullet, LeftSideBullet, AlienBullet
-from alien import Alien
+from sprites import Alien
 
 
 def check_keydown_events(event, settings, screen, stats, sb, ship, bullets):
@@ -12,6 +12,10 @@ def check_keydown_events(event, settings, screen, stats, sb, ship, bullets):
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
+    elif event.key == pygame.K_UP:
+        ship.moving_up = True
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(settings, screen, stats, sb, ship, bullets, Bullet)
     elif event.key == pygame.K_x:
@@ -27,6 +31,10 @@ def check_keyup_events(event, ship):
         ship.moving_right = False
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
+    elif event.key == pygame.K_UP:
+        ship.moving_up = False
+    elif event.key == pygame.K_DOWN:
+        ship.moving_down = False
 
 
 def check_play_button(settings, screen, stats, sb, play_button, ship, aliens, bullets, mouse_x, mouse_y):
@@ -64,7 +72,7 @@ def check_events(settings, screen, stats, sb, play_button, ship, aliens, bullets
             check_keyup_events(event, ship)
 
 
-def update_screen(settings, screen, stats, sb, ship, aliens, bullets, alien_bullets, play_button):
+def update_screen(settings, screen, stats, sb, ship, aliens, bullets, alien_bullets, loots, play_button):
     screen.blit(settings.background, (0, 0))
     sb.show_info()
     for bullet in bullets.sprites():
@@ -73,18 +81,19 @@ def update_screen(settings, screen, stats, sb, ship, aliens, bullets, alien_bull
         alien_bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+    loots.draw(screen)
 
     if not stats.game_active:
         play_button.draw_button()
     pygame.display.flip()
 
 
-def update_bullets(settings, screen, stats, sb, ship, aliens, bullets):
+def update_bullets(settings, screen, stats, sb, ship, aliens, bullets, loots):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
-    check_bullet_alien_collisions(settings, screen, stats, sb, ship, aliens, bullets)
+    check_bullet_alien_collisions(settings, screen, stats, sb, ship, aliens, bullets, loots)
 
 
 def update_alien_bullets(settings, screen, stats, sb, ship, aliens, bullets, alien_bullets):
@@ -107,13 +116,15 @@ def generate_alien_bullets(settings, aliens, screen, stats, alien_bullets):
             alien_bullets.add(new_alien_bullet)
 
 
-def check_bullet_alien_collisions(settings, screen, stats, sb, ship, aliens, bullets):
+def check_bullet_alien_collisions(settings, screen, stats, sb, ship, aliens, bullets, loots):
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 
     if collisions:
         for aliens in collisions.values():
             stats.score += settings.alien_points * len(aliens)
             sb.prep_score()
+            for alien in aliens:
+                alien.generate_loot(loots)
 
     if len(aliens) == 0:
         bullets.empty()
@@ -138,7 +149,6 @@ def ship_hit(settings, stats, sb, screen, ship, aliens, bullets, alien_bullets):
         pygame.mouse.set_visible(True)
 
     sb.prep_lives()
-    print(stats.ships_left)
 
 
 def update_aliens(settings, stats, sb, screen, ship, aliens, bullets, alien_bullets):
@@ -149,6 +159,20 @@ def update_aliens(settings, stats, sb, screen, ship, aliens, bullets, alien_bull
         ship_hit(settings, stats, sb, screen, ship, aliens, bullets, alien_bullets)
     
     check_aliens_bottom(settings, stats, sb, screen, ship, aliens, bullets, alien_bullets)
+
+
+def update_loots(settings, ship, loots, stats, sb):
+    loots.update()
+    collided_loot = pygame.sprite.spritecollideany(ship, loots)
+    if collided_loot:
+        collided_loot.update_ship_stats(stats)
+        loots.remove(collided_loot)
+        sb.prep_lives()
+        sb.prep_powerful_bullets()
+
+    for loot in loots.copy():
+        if loot.rect.top >= settings.screen_height:
+            loots.remove(loot)
 
 
 def fire_bullet(settings, screen, stats, sb, ship, bullets, bullet_class):
@@ -199,7 +223,7 @@ def check_fleet_edges(settings, aliens):
 
 def change_fleet_direction(settings, aliens):
     for alien in aliens.sprites():
-        alien.rect.y += settings.fleet_drop_speed
+        alien.update_y()
     settings.fleet_direction *= -1
 
 
