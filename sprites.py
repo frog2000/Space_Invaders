@@ -1,6 +1,13 @@
 import pygame
 from pygame.sprite import Sprite
 import random
+from bullets import AlienBullet
+
+
+def _check_if_event_happens(probability_factor):
+    if 0 == random.randint(0, int(probability_factor)):
+        return True
+    return False
 
 
 class Alien(Sprite):
@@ -36,11 +43,15 @@ class Alien(Sprite):
             return True
 
     def generate_loot(self, loots):
-        random_int = random.randint(0, int(self.settings.loot_probability))
-        if 0 == random_int:
+        if _check_if_event_happens(self.settings.loot_probability):
             loots.add(LootHealth(self.screen, self.settings, self.rect.x, self.rect.y))
-        elif 1 == random_int:
+        elif _check_if_event_happens(self.settings.loot_probability):
             loots.add(LootPowerfulBullet(self.screen, self.settings, self.rect.x, self.rect.y))
+
+    def generate_alien_bullet(self, alien_bullets):
+        if _check_if_event_happens(self.settings.alien_probability_shooting):
+            new_alien_bullet = AlienBullet(self.settings, self.screen, self)
+            alien_bullets.add(new_alien_bullet)
 
 
 class LootHealth(Sprite):
@@ -62,9 +73,6 @@ class LootHealth(Sprite):
 
     def update_ship_stats(self, stats):
         stats.ships_left += 1
-
-    def blitme(self):
-        self.screen.blit(self.image, self.rect)
 
 
 class LootPowerfulBullet(LootHealth):

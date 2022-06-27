@@ -9,10 +9,10 @@ class Settings:
         self.screen_height = 800
         self.background = pygame.image.load("images/space.jpg")
 
-        self.ship_seed_factor = 10
+        self.ship_seed_factor = None
         self.ship_limit = 3
 
-        self.bullet_speed_factor = 15
+        self.bullet_speed_factor = None
         self.alien_bullet_speed_factor = 5
         self.bullet_width = 3
         self.bullet_height = 15
@@ -24,18 +24,18 @@ class Settings:
         self.bullets_allowed = 3
         self.powerful_bullets_available = 3
 
-        self.alien_speed_factor = 5
+        self.alien_speed_factor = None
         self.fleet_drop_speed = 10
-        self.fleet_direction = 1
+        self.fleet_direction = None
 
-        self.frame_time = 0.016
+        self.fps = 60
 
         self.speed_up_scale = 1.1
         self.initialise_dynamic_settings()
 
         self.alien_points = 50
 
-        self.alien_probability_shooting = 4000
+        self.alien_probability_shooting = None
 
         self.loot_drop_speed = 3
         self.loot_probability = 100

@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 
 class Bullet(Sprite):
 
-    def __init__(self, settings, screen, stats, origin_object):
+    def __init__(self, settings, screen, origin_object):
         super().__init__()
         self.screen = screen
 
@@ -27,8 +27,8 @@ class Bullet(Sprite):
 
 
 class AlienBullet(Bullet):
-    def __init__(self, settings, screen, stats, origin_object):
-        super().__init__(settings, screen, stats, origin_object)
+    def __init__(self, settings, screen, origin_object):
+        super().__init__(settings, screen, origin_object)
 
         self.colour = settings.alien_bullet_colour
         self.speed_factor = settings.alien_bullet_speed_factor
@@ -39,8 +39,8 @@ class AlienBullet(Bullet):
 
 
 class RightSideBullet(Bullet):
-    def __init__(self, settings, screen, stats, origin_object):
-        super().__init__(settings, screen, stats, origin_object)
+    def __init__(self, settings, screen, origin_object):
+        super().__init__(settings, screen, origin_object)
 
         self.rect = pygame.Rect(0, 0, settings.sidebullet_size, settings.sidebullet_size)
         self.rect.right = origin_object.rect.right
@@ -56,8 +56,8 @@ class RightSideBullet(Bullet):
 
 
 class LeftSideBullet(Bullet):
-    def __init__(self, settings, screen, stats, origin_object):
-        super().__init__(settings, screen, stats, origin_object)
+    def __init__(self, settings, screen, origin_object):
+        super().__init__(settings, screen, origin_object)
 
         self.rect = pygame.Rect(0, 0, settings.sidebullet_size, settings.sidebullet_size)
         self.rect.left = origin_object.rect.left
@@ -74,9 +74,8 @@ class LeftSideBullet(Bullet):
 
 class PowerfulBullet(Bullet):
 
-    def __init__(self, settings, screen, stats, origin_object):
-        super().__init__(settings, screen, stats, origin_object)
+    def __init__(self, settings, screen, origin_object):
+        super().__init__(settings, screen, origin_object)
 
         self.rect = pygame.Rect(0, 0, settings.screen_width * 2, settings.bullet_height)
         self.colour = settings.powerful_bullet_colour
-        stats.powerful_bullets -= 1
