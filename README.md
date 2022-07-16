@@ -3,7 +3,7 @@ This a  modification and expansion of the code originally
 written by Eric Matthes in the book "Python Crash Course"<br />
 No Starch Press, San Francisco, 2016<br />
 
-Press 'space', to shoot he main laser and 'z' and 'x' keys to shoot the side lasers.<br />
+Press 'space', to shoot the main laser cannon and 'z' and 'x' keys to shoot the side lasers.<br />
 Press left 'CTRL' to shoot a pulse.<br />
 Move the ship using ↑↓→ and ← arrows.<br />
 
