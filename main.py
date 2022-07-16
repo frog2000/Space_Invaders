@@ -1,6 +1,6 @@
 # Adrian Krzyzanowski - PUW 2022
 # Game inspired by the Space Invaders
-# This a significant modification and expansion of the code originally
+# This a modification and expansion of the code originally
 # written by Eric Matthes in the book "Python Crash Course"
 # No Starch Press, San Francisco, 2016
 #
